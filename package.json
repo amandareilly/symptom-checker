@@ -1,0 +1,31 @@
+{
+  "name": "symptom-checker",
+  "version": "1.0.0",
+  "description": "A proof of concept app to give potential diagnoses based on reported symptoms and conditions, and direct the user to an appropriate physician.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amandareilly/symptom-checker.git"
+  },
+  "author": "Amanda Reilly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amandareilly/symptom-checker/issues"
+  },
+  "homepage": "https://github.com/amandareilly/symptom-checker#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-livereload": "^3.8.1",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8"
+  }
+}
