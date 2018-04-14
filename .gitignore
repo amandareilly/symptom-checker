@@ -6,3 +6,6 @@ public
 
 ## Node Modules Directory
 node_modules
+
+## Compiled Handlebars Templates
+source/js/templates
