@@ -1,7 +1,7 @@
 'use strict';
 
 class InfermedicaHandler {
-    constructor() {
+    constructor(patient) {
         this.url = 'https://api.infermedica.com/v2/';
         this.settings = {
             'beforeSend': function(xhr) {
@@ -10,6 +10,8 @@ class InfermedicaHandler {
             },
             'contentType': 'application/json'
         };
+        this.patient = patient;
+        console.log(this.patient);
     }
 
     call(endpoint, params) {
@@ -31,12 +33,10 @@ class InfermedicaHandler {
     }
 
     processSearch(data, params) {
-        const patient = params.patient;
-        delete params.patient;
-        patient.searchResults.push({ data, params });
+        console.log(this.patient);
+        this.patient.searchResults.push({ data, params });
         if (params.last) {
-            const handler = new NavHandler();
-            handler.renderSymptomMatcher();
+            this.patient.processSearchFinished();
         }
     }
 
@@ -62,7 +62,6 @@ class InfermedicaHandler {
         for (let i = 0; i < found.length; i++) {
             let newParams = {
                 'token': found[i]['common_name'],
-                'patient': params.patient,
                 'parseData': found[i]
             };
             if (i === found.length - 1) {

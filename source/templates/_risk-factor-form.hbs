@@ -1,0 +1,17 @@
+<form action="#" class="risk-factor-interviews">
+    <fieldset>
+        {{#if hasQuestions}}
+            {{#each riskFactors}}
+                <p>{{this.question}}</p>
+                {{> risk-factor-radio-group}}            
+            {{/each}}
+        {{else}}
+            <legend>{{prompt}}</legend>
+            {{#each riskFactors}}
+                <p>{{name}}</p>
+                {{> risk-factor-radio-group}}
+            {{/each}}
+        {{/if}}
+        <button type="submit" id="submit-risk-factors" class="js-clickable">Continue</button>
+    </fieldset>
+</form>
