@@ -1,0 +1,14 @@
+<form action="#" id="diagnosis-question">
+    <fieldset>
+        <legend>{{text}} (Select all that apply)</legend>
+        {{#each items}}
+        <label for="{{this.id}}">{{this.name}}
+            <input type="checkbox" name="{{this.id}}" id="{{this.id}}" data-name="{{this.name}}">
+        </label>
+        {{/each}}
+        <label for="none">None of the Above
+            <input type="checkbox" name="none" id="none" value="none">
+        </label>
+        <button type="submit" id="submit-question-answer" class="js-clickable">Continue</button>
+    </fieldset>
+</form>

@@ -1,0 +1,13 @@
+<form action="#" id="diagnosis-question">
+    <fieldset>
+        <legend>{{text}}</legend>
+        {{#each items}}
+            {{#each choices}}
+                <label for="{{this.id}}">{{this.label}}
+                    <input type="radio" name="choice" id="{{this.id}}" value ="{{this.id}}">
+                </label>
+            {{/each}}
+        {{/each}}
+        <button type="submit" id="submit-question-answer" class="js-clickable">Continue</button>
+    </fieldset>
+</form>

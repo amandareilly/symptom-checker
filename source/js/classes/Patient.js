@@ -5,12 +5,17 @@ class Patient {
         this.handler = new NavHandler(this);
         this.renderer = new PageRenderer();
         this.interface = new InfermedicaHandler(this);
-        this.interview = {};
-        this.interview.evidence = [];
+        this.interview = {
+            'sex': null,
+            'age': null,
+            'evidence': []
+        };
         this.presentEvidenceNames = [];
         this.absentEvidenceNames = [];
         this.searchResults = [];
         this.riskFactorInterview = ['female', 'behavior', 'med', 'injury', 'location', 'misc'];
+        this.numCalls = 0;
+        this.conditions = [];
     }
 
     initialize(name, age, gender) {
@@ -69,8 +74,6 @@ class Patient {
             this.addSymptom(symptom.id, 'absent', true, symptom.name);
         }
 
-        this.renderer.run('aside', 'interview-sidebar', this);
-
         if (this.searchResults !== undefined && this.searchResults.length != 0) {
             this.runSymptomMatcher();
         } else {
@@ -88,9 +91,10 @@ class Patient {
         }
         this.interview.evidence.push({
             'id': id,
-            'present': presence,
+            'choice_id': presence,
             'initial': isInitial
         });
+        this.renderer.run('aside', 'interview-sidebar', this);
     }
 
     runRiskFactorInterview() {
@@ -108,11 +112,73 @@ class Patient {
             }
             this.addSymptom(info[0], presence, true, name);
         }
-
         if (this.riskFactorInterview !== undefined && this.riskFactorInterview.length != 0) {
             this.handler.runRiskFactor();
         } else {
-            console.log('risk factor done')
+            this.handler.runDiagnosis();
+        }
+    }
+
+    processDiagnosisData(data) {
+        this.numCalls++;
+        if (data.should_stop || this.numCalls > 9 || !data.question) {
+            const promises = [];
+            data.conditions.forEach(condition => {
+                promises.push(this.interface.conditions(condition.id, condition.probability));
+            });
+            $.when.apply($, promises).then(
+                function() {
+                    this.showDiagnoses();
+                }.bind(this.handler),
+                function() {
+                    this.handler.catchError();
+                }.bind(this.handler));
+            console.log(data);
+            console.log(JSON.stringify(data));
+            console.log(this);
+        } else {
+            console.log(data);
+            console.log('process diagnosis data else');
+            this.currentQuestion = data.question;
+            this.renderer.run('main', 'question-form-' + this.currentQuestion.type, this.currentQuestion);
+        }
+    }
+
+    processQuestionAnswer() {
+        this.renderer.run('main', 'loader');
+        switch (this.currentQuestion.type) {
+            case 'single':
+                var checked = $('input:checked');
+                this.addSymptom(this.currentQuestion.items[0].id, checked.id, false, this.currentQuestion.items[0].name);
+                console.log(checked);
+                console.log(this.currentQuestion.type);
+                console.log('question type single');
+                this.handler.runDiagnosis();
+                break;
+            case 'group_single':
+                var checked = $('input:checked');
+                if (checked.id !== 'none' && checked.id != 'unknown') {
+                    this.addSymptom(checked.id, 'present', false, checked.data('name'));
+                }
+                console.log(this.currentQuestion.type);
+                console.log('question type group_single');
+                this.handler.runDiagnosis();
+                break;
+            case 'group_multiple':
+                $('input').each(function() {
+                    console.log(this);
+                    if (this.id !== 'none') {
+                        let presence = 'absent';
+                        if (this.is(':checked')) {
+                            presence = 'present';
+                        }
+                        this.addSymptom(this.id, presence, false, this.data('name'));
+                    }
+                });
+                console.log(this.currentQuestion.type);
+                console.log('question type group_multiple');
+                this.handler.runDiagnosis();
+                break;
         }
     }
 }

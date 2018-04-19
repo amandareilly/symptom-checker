@@ -80,4 +80,41 @@ class NavHandler {
     submitRiskFactors() {
         this.patient.processRiskFactors();
     }
+
+    runDiagnosis() {
+        this.renderer.run('main', 'loader');
+        // this.interface.diagnosis();
+        //uncomment line above and remove lines below for production code
+        if (this.patient.numCalls === 0) {
+            this.patient.processDiagnosisData(response1);
+        } else if (this.patient.numCalls === 1) {
+            this.patient.processDiagnosisData(response2);
+        } else if (this.patient.numCalls === 2) {
+            this.patient.processDiagnosisData(response3);
+        } else {
+            this.patient.processDiagnosisData(response4);
+        }
+    }
+
+    showDiagnoses() {
+        console.log('SHOW DIAGNOSES');
+        console.log(this.patient.conditions);
+        const wrapper = { 'conditions': this.patient.conditions };
+        console.log(wrapper);
+        this.renderer.run('main', 'show-conditions', wrapper);
+    }
+
+    submitQuestionAnswer() {
+        console.log('question submission received');
+        this.patient.processQuestionAnswer();
+    }
+
+    startOver() {
+        location.reload(true);
+    }
+
+    catchError() {
+        $('aside').toggleClass('hidden');
+        this.renderer.run('main', 'error');
+    }
 }

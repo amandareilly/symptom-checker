@@ -2,15 +2,21 @@
 
 class InfermedicaHandler {
     constructor(patient) {
+        this.patient = patient;
         this.url = 'https://api.infermedica.com/v2/';
         this.settings = {
             'beforeSend': function(xhr) {
                 xhr.setRequestHeader('App-Id', '1717e9ee');
                 xhr.setRequestHeader('App-Key', 'ee323adeefe3ea79f136069988aed75a');
+                xhr.setRequestHeader('Dev-Mode', true);
             },
-            'contentType': 'application/json'
+            'contentType': 'application/json',
+            'error': function(XMLHttpRequest) {
+                console.log(XMLHttpRequest);
+                this.patient.handler.catchError();
+            }.bind(this)
         };
-        this.patient = patient;
+
         console.log(this.patient);
     }
 
@@ -69,5 +75,29 @@ class InfermedicaHandler {
             }
             this.call('search', newParams);
         }
+    }
+
+    diagnosis() {
+        const url = this.url + 'diagnosis';
+        const settings = Object.assign(this.settings);
+        settings.data = JSON.stringify(this.patient.interview);
+        settings.method = 'POST';
+        settings.success = function(data) {
+            this.patient.processDiagnosisData(data);
+        }.bind(this);
+        $.ajax(url, settings);
+        console.log(JSON.stringify(this.patient.interview));
+        console.log(this.patient.interview);
+    }
+
+    conditions(id, probability) {
+        const url = this.url + 'conditions/' + id;
+        const settings = Object.assign(this.settings);
+        settings.method = 'GET';
+        settings.success = function(data) {
+            data.probability = probability;
+            this.patient.conditions.push(data);
+        }.bind(this);
+        return $.ajax(url, settings);
     }
 }

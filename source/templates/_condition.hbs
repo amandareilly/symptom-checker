@@ -1,0 +1,13 @@
+<div class="condition {{this.prevalence}} {{this.acuteness}} {{this.severity}} {{this.triage_level}} {{#each categories}}{{this}} {{/each}}"
+    id="{{this.id}}">
+    <h3>{{this.common_name}}</h3>
+    <p class="subheading">Medical Name: {{this.name}}</p>
+    <progress value="{{this.probability}}">Probability: {{this.probability}}</progress>
+    <dl>
+        <dt>Prevalence</dt>
+        <dd>{{this.prevalence}}</dd>
+        <dt>Severity</dt>
+        <dd>{{this.severity}}</dd>
+    </dl>
+    <p>{{this.extras.hint}}</p>
+</div>

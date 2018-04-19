@@ -1,0 +1,9 @@
+
+    <h2>Possible Conditions</h2>
+    <p>Based on the information you have provided us, the following conditions are possible matches for your symptoms:</p>
+    {{#each conditions}}
+        {{> condition}}
+    {{/each}}
+
+{{> disclaimer-text}}
+<a href="#" class="js-clickable" id="start-over">Start Over</a>
