@@ -19,11 +19,6 @@ class NavHandler {
         this.renderer.run('main', 'disclaimer');
     }
 
-    findDoc() {
-        console.log('Find a doctor was clicked');
-        // TODO: implement.  Found on home page and in header of symptom Checker.
-    }
-
     acceptDisclaimer() {
         $('aside').addClass('hidden');
         this.renderer.run('header', 'header-symptomChecker');
