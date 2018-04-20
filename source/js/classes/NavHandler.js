@@ -10,8 +10,9 @@ class NavHandler {
     run(e) {
         // e.PreventDefault();
         console.log(this.patient);
-        let id = e.originalEvent.path[0].id
-            .replace(/(-.)/g, function(match) { return match[1].toUpperCase(); });
+        const id = $(event.target).data('clickable');
+        // let id = e.originalEvent.path[0].id
+        //     .replace(/(-.)/g, function(match) { return match[1].toUpperCase(); });
         this[id]();
     }
 

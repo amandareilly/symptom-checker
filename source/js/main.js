@@ -6,7 +6,7 @@ function mainController() {
     navHandler.renderer.run('header', 'header-home');
     navHandler.renderer.run('main', 'home');
     //listen for clicks on homepage buttons
-    $('#main-container').on('click', '.js-clickable', function(e) {
+    $('#main-container').on('click', '[data-clickable]', function(e) {
         e.preventDefault();
         navHandler.run(e);
     });
