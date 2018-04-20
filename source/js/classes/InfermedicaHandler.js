@@ -29,7 +29,7 @@ class InfermedicaHandler {
         const url = this.url + 'search';
         const settings = Object.assign(this.settings);
         settings.data = {
-            'phrase': params.token,
+            'phrase': params.phrase,
         };
         settings.method = 'GET';
         settings.success = function(data) {
@@ -51,7 +51,7 @@ class InfermedicaHandler {
         const url = this.url + 'parse';
         const settings = Object.assign(this.settings);
         settings.data = JSON.stringify({
-            'text': params.token
+            'text': params.phrase
         });
         settings.method = 'POST';
         settings.success = function(data) {
@@ -67,7 +67,7 @@ class InfermedicaHandler {
         console.log(found);
         for (let i = 0; i < found.length; i++) {
             let newParams = {
-                'token': found[i]['common_name'],
+                'phrase': found[i]['common_name'],
                 'parseData': found[i]
             };
             if (i === found.length - 1) {

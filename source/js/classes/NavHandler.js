@@ -51,7 +51,7 @@ class NavHandler {
     submitSymptoms() {
         const symptoms = $('textarea').val();
         this.renderer.run('main', 'loader', this.patient);
-        this.interface.call('parse', { 'token': symptoms, 'patient': this.patient });
+        this.interface.call('parse', { 'phrase': symptoms, 'patient': this.patient });
         console.log('called parse symptoms');
         //TODO: implement and re-code for new setup
     }
