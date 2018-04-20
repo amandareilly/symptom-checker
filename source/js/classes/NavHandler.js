@@ -33,23 +33,50 @@ class NavHandler {
     }
 
     submitInterviewStart() {
-        this.patient.initialize(
-            $('input[name=first-name]').val(),
-            $('input[name=age]').val(),
-            $('input[name=gender]:checked').val()
-        );
-        $('aside').removeClass('hidden');
-        this.renderer.run('aside', 'interview-sidebar', this.patient);
-        this.renderer.run('main', 'symptom-interview', this.patient);
-        // TODO: implement function and error handling
+        const validator = $('form').validate({
+            errorLabelContainer: '#errors',
+            messages: {
+                'first-name': {
+                    required: 'Please enter your name.',
+                    minlength: 'Name must be at least 2 characters.'
+                },
+                'age': {
+                    required: 'Please enter your age.'
+                },
+                'gender': {
+                    required: 'Please select your sex.'
+                }
+            }
+        });
+        if (validator.form()) {
+            this.patient.initialize(
+                $('input[name=first-name]').val(),
+                $('input[name=age]').val(),
+                $('input[name=gender]:checked').val()
+            );
+            $('aside').removeClass('hidden');
+            this.renderer.run('aside', 'interview-sidebar', this.patient);
+            this.renderer.run('main', 'symptom-interview', this.patient);
+            // TODO: implement function and error handling
+        }
     }
 
     submitSymptoms() {
-        const symptoms = $('textarea').val();
-        this.renderer.run('main', 'loader', this.patient);
-        this.interface.call('parse', { 'phrase': symptoms, 'patient': this.patient });
-        console.log('called parse symptoms');
-        //TODO: implement and re-code for new setup
+        const validator = $('form').validate({
+            errorLabelContainer: '#errors',
+            messages: {
+                'enter-symptoms': {
+                    required: 'Please tell me about your symptoms.'
+                }
+            }
+        });
+        if (validator.form()) {
+            const symptoms = $('textarea').val();
+            this.renderer.run('main', 'loader', this.patient);
+            this.interface.call('parse', { 'phrase': symptoms, 'patient': this.patient });
+            console.log('called parse symptoms');
+            //TODO: implement and re-code for new setup
+        }
     }
 
     submitSymptomMatcher() {

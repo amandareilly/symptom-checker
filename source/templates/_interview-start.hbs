@@ -1,16 +1,46 @@
 <form class="interview-start" action="#" method="post">
   <fieldset>
     <legend>Tell Me About Yourself</legend>
+    <div id="errors" style="display: none;"></div>
     <label for="first-name">What can I call you?</label><br>
-    <input type="text" name="first-name" placeholder="First Name"><br>
+    <input type="text" name="first-name" placeholder="First Name" minlength=2 required><br>
     <label for="age">How old are you?</label><br>
-    <input type="number" name="age"><br>
+    <input type="number" name="age" required><br>
     <label for="gender">Are you Male or Female?</label><br>
-    <label for="male">Male</label>
-    <input type="radio" name="gender" value="male" id="male">
-    <label for="female">Female</label>
-    <input type="radio" name="gender" value="female" id="female"><br>
+    <input type="radio" name="gender" value="male" id="male" required><label for="male">Male</label><br>
+    <input type="radio" name="gender" value="female" id="female" required><label for="female">Female</label><br>
     <button type="submit" name="submit" id="submit-interview-start" data-clickable="submitInterviewStart">Continue</button>
   </fieldset>
 </form>
 {{> disclaimer-text}}
+{{!-- 
+<script>
+  $(function() {
+    $('form').validate({
+      rules: {
+        'first-name': {
+          required: true,
+          minlength: 2
+        },
+        'age': {
+          required: true
+        },
+        'gender': {
+          required: true
+        }
+      },
+      messages: {
+        'first-name': {
+          required: 'Name is required.',
+          minlength: 'Name must be at least two characters.'
+        },
+        'age': {
+          required: 'Age is required.'
+        },
+        'gender': {
+          required: 'Please select your biological gender.'
+        }
+      }
+    });
+  });
+</script> --}}
