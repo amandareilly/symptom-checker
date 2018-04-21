@@ -1,10 +1,11 @@
-<form action="#" id="diagnosis-question">
+<form action="#" id="diagnosis-question" data-type="single">
     <fieldset>
         <legend>{{text}}</legend>
+        <div id="error" style="display: none;"></div>
         {{#each items}}
             {{#each choices}}
                 <label for="{{this.id}}">{{this.label}}
-                    <input type="radio" name="choice" id="{{this.id}}" value ="{{this.id}}">
+                    <input type="radio" name="choice" id="{{this.id}}" value ="{{this.id}}" required>
                 </label>
             {{/each}}
         {{/each}}

@@ -80,13 +80,31 @@ class NavHandler {
     }
 
     submitSymptomMatcher() {
-        console.log('symptom matcher submitted');
-        this.patient.processMatchedSymptoms();
+        const validator = $('form').validate({
+            errorLabelContainer: '#errors',
+            rules: {
+                'symptom': {
+                    require_from_group: [1, ".symptom-group"]
+                }
+            },
+            messages: {
+                'symptom': {
+                    require_from_group: 'Please select one or more of the following symptoms.'
+                }
+            }
+        });
+        if (validator.form()) {
+            console.log('symptom matcher submitted');
+            this.patient.processMatchedSymptoms();
+        }
     }
 
     startSymptomMatcher() {
         console.log('symptom matcher running');
-        this.renderer.run('main', 'symptom-matcher', this.patient.searchResults.shift());
+        console.log(this.patient);
+        const results = this.patient.searchResults.shift();
+        console.log(results);
+        this.renderer.run('main', 'symptom-matcher', results);
         console.log(this.patient);
     }
 

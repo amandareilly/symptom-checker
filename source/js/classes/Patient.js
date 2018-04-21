@@ -68,10 +68,12 @@ class Patient {
         console.log(checked);
         console.log(unchecked);
         for (let symptom of checked) {
-            this.addSymptom(symptom.id, 'present', true, symptom.name);
+            console.log(symptom);
+            console.log($(symptom));
+            this.addSymptom(symptom.id, 'present', true, $(symptom).data('name'));
         }
         for (let symptom of unchecked) {
-            this.addSymptom(symptom.id, 'absent', true, symptom.name);
+            this.addSymptom(symptom.id, 'absent', true, $(symptom).data('name'));
         }
 
         if (this.searchResults !== undefined && this.searchResults.length != 0) {

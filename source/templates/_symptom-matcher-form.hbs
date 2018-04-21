@@ -2,8 +2,9 @@
     <h3>You said: "{{params.parseData.orth}}"</h3>
     <fieldset>
         <legend>Check the symptoms that match your entry above:</legend>
+        <div id="errors" style="display: none;"></div>
         {{#each data}}
-            <label for="{{this.label}}">{{this.label}}<input type="checkbox" name="{{this.label}}" id="{{this.id}}" class="symptom-matcher-symptom"></label><br>
+            <label for="{{this.label}}">{{this.label}}<input type="checkbox" name="symptom" id="{{this.id}}" class="symptom-group" data-name="{{this.label}}"></label><br>
         {{else}}
             <p class="empty">Nothing found.</p>
         {{/each}}

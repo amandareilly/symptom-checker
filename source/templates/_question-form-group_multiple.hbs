@@ -1,13 +1,14 @@
-<form action="#" id="diagnosis-question">
+<form action="#" id="diagnosis-question" data-type="group_multiple">
     <fieldset>
         <legend>{{text}} (Select all that apply)</legend>
+        <div id="error" style="display: none;"></div>
         {{#each items}}
         <label for="{{this.id}}">{{this.name}}
-            <input type="checkbox" name="{{this.id}}" id="{{this.id}}" data-name="{{this.name}}">
+            <input type="checkbox" name="choice" id="{{this.id}}" data-name="{{this.name}}" class="choice-group">
         </label>
         {{/each}}
         <label for="none">None of the Above
-            <input type="checkbox" name="none" id="none" value="none">
+            <input type="checkbox" name="choice" id="none" value="none" class="choice-group">
         </label>
         <button type="submit" id="submit-question-answer" data-clickable="submitQuestionAnswer">Continue</button>
     </fieldset>
