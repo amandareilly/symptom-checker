@@ -65,15 +65,20 @@ class InfermedicaHandler {
         console.log(data);
         const found = data.mentions;
         console.log(found);
-        for (let i = 0; i < found.length; i++) {
-            let newParams = {
-                'phrase': found[i]['common_name'],
-                'parseData': found[i]
-            };
-            if (i === found.length - 1) {
-                newParams.last = true;
+        if (found.length === 0) {
+            console.log(this.app.nav);
+            this.app.nav.noSymptomsFound(params.phrase);
+        } else {
+            for (let i = 0; i < found.length; i++) {
+                let newParams = {
+                    'phrase': found[i]['common_name'],
+                    'parseData': found[i]
+                };
+                if (i === found.length - 1) {
+                    newParams.last = true;
+                }
+                this.call('search', newParams);
             }
-            this.call('search', newParams);
         }
     }
 

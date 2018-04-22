@@ -48,7 +48,7 @@ class NavHandler {
             );
             $('aside').removeClass('hidden');
             this.app.renderer.run('aside', 'interview-sidebar', this.app.patient);
-            this.app.renderer.run('main', 'symptom-interview', this.app.patient);
+            this.app.renderer.run('main', 'symptom-interview', { patient: this.app.patient });
             // TODO: implement function and error handling
         }
     }
@@ -133,17 +133,17 @@ class NavHandler {
 
     runDiagnosis() {
         this.app.renderer.run('main', 'loader');
-        // this.app.interface.diagnosis();
+        this.app.interface.diagnosis();
         //uncomment line above and remove lines below for production code
-        if (this.app.patient.numCalls === 0) {
-            this.app.patient.processDiagnosisData(response1);
-        } else if (this.app.patient.numCalls === 1) {
-            this.app.patient.processDiagnosisData(response2);
-        } else if (this.app.patient.numCalls === 2) {
-            this.app.patient.processDiagnosisData(response3);
-        } else {
-            this.app.patient.processDiagnosisData(response4);
-        }
+        // if (this.app.patient.numCalls === 0) {
+        //     this.app.patient.processDiagnosisData(response1);
+        // } else if (this.app.patient.numCalls === 1) {
+        //     this.app.patient.processDiagnosisData(response2);
+        // } else if (this.app.patient.numCalls === 2) {
+        //     this.app.patient.processDiagnosisData(response3);
+        // } else {
+        //     this.app.patient.processDiagnosisData(response4);
+        // }
     }
 
     showDiagnoses() {
@@ -164,7 +164,17 @@ class NavHandler {
     }
 
     catchError() {
-        $('aside').toggleClass('hidden');
+        $('aside').addClass('hidden');
         this.app.renderer.run('main', 'error');
+    }
+
+    noSymptomsFound(phrase) {
+        console.log("No Symptoms Found");
+        this.app.renderer.run('main', 'symptom-interview', this.app.patient);
+        $('#errors').removeAttr('style').html('<p class="error">No information found for: "' + phrase + '".  Please try again.');
+    }
+
+    symptomsTryAgain(phrase) {
+        this.app.renderer.run('main', 'symptom-interview', this.app.patient);
     }
 }
