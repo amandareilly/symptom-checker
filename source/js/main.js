@@ -5,7 +5,7 @@ function mainController() {
     //render the home page
     navHandler.renderer.run('header', 'header-home');
     navHandler.renderer.run('main', 'home');
-    //listen for clicks on homepage buttons
+    //listen for clicks 
     $('#main-container').on('click', '[data-clickable]', function(e) {
         e.preventDefault();
         navHandler.run(e);

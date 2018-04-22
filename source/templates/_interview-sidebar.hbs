@@ -8,18 +8,18 @@
     <dt>Gender:</dt>
     <dd>{{interview.sex}}</dd>
   </dl>
-  <h4>Symptoms Present</h4>
+  <h4>Symptoms and Risk Factors Present</h4>
   <ul>
     {{#each presentEvidenceNames}}
-      <li class="evidence">{{this}}</li>
+      <li class="evidence symptom present">{{this}}</li>
     {{else}}
       <p>None yet.</p>
     {{/each}}
   </ul>
-  <h4>Symptoms Absent</h4>
+  <h4>Symptoms and Risk Factors Absent</h4>
   <ul>
     {{#each absentEvidenceNames}}
-      <li class="evidence">{{this}}</li>
+      <li class="evidence symptom absent">{{this}}</li>
     {{else}}
       <p>None yet.</p>
     {{/each}}

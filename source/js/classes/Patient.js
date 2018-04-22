@@ -10,10 +10,11 @@ class Patient {
             'age': null,
             'evidence': []
         };
+        this.presentRiskFactorNames = [];
+        this.absentRiskFactorNames = [];
         this.presentEvidenceNames = [];
         this.absentEvidenceNames = [];
         this.searchResults = [];
-        this.riskFactorInterview = ['female', 'behavior', 'med', 'injury', 'location', 'misc'];
         this.numCalls = 0;
         this.conditions = [];
     }
@@ -23,29 +24,31 @@ class Patient {
         this.interview.age = age;
         this.interview.sex = gender;
         this.processAge();
+        console.log(this.handler.riskFactorInterview);
         this.processGender();
+        console.log(this.handler.riskFactorInterview);
     }
 
     processAge() {
         if (this.interview.age < 18) {
-            this.addSymptom('p_65', 'present', true);
+            this.addEvidence('p_65', 'present', true);
         } else if (this.interview.age > 40) {
-            this.addSymptom('p_3', 'present', true);
+            this.addEvidence('p_3', 'present', true);
 
             if (this.interview.age >= 45 && this.interview.age <= 55) {
-                this.addSymptom('p_4', 'present', true);
+                this.addEvidence('p_4', 'present', true);
             } else if (this.interview.age > 60) {
-                this.addSymptom('p_5', 'present', true);
+                this.addEvidence('p_5', 'present', true);
             }
         }
     }
 
     processGender() {
         if (this.interview.sex === 'female') {
-            this.addSymptom('p_1', 'present', true);
+            this.addEvidence('p_1', 'present', true);
         } else {
-            this.riskFactorInterview.shift();
-            this.addSymptom('p_2', 'present', true);
+            this.handler.riskFactorInterview.markInterviewUnavailable('femaleInterview');
+            this.addEvidence('p_2', 'present', true);
         }
     }
 
@@ -70,10 +73,10 @@ class Patient {
         for (let symptom of checked) {
             console.log(symptom);
             console.log($(symptom));
-            this.addSymptom(symptom.id, 'present', true, $(symptom).data('name'));
+            this.addEvidence(symptom.id, 'present', true, $(symptom).data('name'));
         }
         for (let symptom of unchecked) {
-            this.addSymptom(symptom.id, 'absent', true, $(symptom).data('name'));
+            this.addEvidence(symptom.id, 'absent', true, $(symptom).data('name'));
         }
 
         if (this.searchResults !== undefined && this.searchResults.length != 0) {
@@ -83,7 +86,7 @@ class Patient {
         }
     }
 
-    addSymptom(id, presence, isInitial, name = null) {
+    addEvidence(id, presence, isInitial, name = null) {
         if (name) {
             if (presence === 'present') {
                 this.presentEvidenceNames.push(name);
@@ -112,7 +115,7 @@ class Patient {
             if (info[1] === 'no') {
                 presence = 'absent';
             }
-            this.addSymptom(info[0], presence, true, name);
+            this.addEvidence(info[0], presence, true, name);
         }
         if (this.riskFactorInterview !== undefined && this.riskFactorInterview.length != 0) {
             this.handler.runRiskFactor();
@@ -151,7 +154,7 @@ class Patient {
         switch (this.currentQuestion.type) {
             case 'single':
                 var checked = $('input:checked');
-                this.addSymptom(this.currentQuestion.items[0].id, checked.id, false, this.currentQuestion.items[0].name);
+                this.addEvidence(this.currentQuestion.items[0].id, checked.id, false, this.currentQuestion.items[0].name);
                 console.log(checked);
                 console.log(this.currentQuestion.type);
                 console.log('question type single');
@@ -160,7 +163,7 @@ class Patient {
             case 'group_single':
                 var checked = $('input:checked');
                 if (checked.id !== 'none' && checked.id != 'unknown') {
-                    this.addSymptom(checked.id, 'present', false, checked.data('name'));
+                    this.addEvidence(checked.id, 'present', false, checked.data('name'));
                 }
                 console.log(this.currentQuestion.type);
                 console.log('question type group_single');
@@ -174,7 +177,7 @@ class Patient {
                         if (this.is(':checked')) {
                             presence = 'present';
                         }
-                        this.addSymptom(this.id, presence, false, this.data('name'));
+                        this.addEvidence(this.id, presence, false, this.data('name'));
                     }
                 });
                 console.log(this.currentQuestion.type);

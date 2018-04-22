@@ -1,0 +1,8 @@
+<label for="{{this.riskFactorData.id}}">
+    {{#if this.question}}
+        {{this.question}}
+    {{else}}
+        {{this.riskFactorData.common_name}}
+    {{/if}}
+    <input type="checkbox" name="choice" id="{{this.riskFactorData.id}}" class="risk-factor-group" data-group="risk-factor-group" data-name="{{this.riskFactorData.common_name}}">
+</label><br>

@@ -5,6 +5,10 @@ class NavHandler {
         this.renderer = new PageRenderer();
         this.interface = new InfermedicaHandler(patient);
         this.patient = patient;
+        console.log('************');
+        this.riskFactorInterview = new RiskFactorInterviewHandler(patient, this.renderer, 'NavHandler');
+        console.log('risk factor interview initialized');
+        console.log('************');
     }
 
     run(e) {
@@ -112,14 +116,31 @@ class NavHandler {
         this.renderer.run('main', 'risk-factor-intro', this.patient);
     }
 
-    runRiskFactor() {
-        const interview = this.patient.riskFactorInterview.shift();
-        const datastore = new DataStore();
-        this.renderer.run('main', 'risk-factor-interview', datastore.get(interview));
+    runRiskFactorInterview() {
+        this.riskFactorInterview.run();
     }
 
     submitRiskFactors() {
-        this.patient.processRiskFactors();
+        const validator = $('form').validate({
+            errorLabelContainer: '#errors',
+            rules: {
+                'choice': {
+                    require_from_group: [1, ".risk-factor-group"]
+                }
+            },
+            messages: {
+                'choice': {
+                    require_from_group: 'If none of the statements apply to you, please select "None".'
+                }
+            }
+        });
+        if (validator.form()) {
+            this.riskFactorInterview.processInterviewAnswers();
+        }
+    }
+
+    riskFactorInterviewComplete() {
+        this.runDiagnosis();
     }
 
     runDiagnosis() {
