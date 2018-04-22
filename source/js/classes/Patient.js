@@ -83,6 +83,8 @@ class Patient {
     }
 
     addEvidence(id, presence, isInitial, name = null) {
+        console.log(id);
+        console.log(presence);
         if (name) {
             if (presence === 'present') {
                 this.presentEvidenceNames.push(name);
@@ -122,7 +124,7 @@ class Patient {
 
     processDiagnosisData(data) {
         this.numCalls++;
-        if (data.should_stop || this.numCalls > 9 || !data.question) {
+        if (data.should_stop || this.numCalls > 30 || !data.question) {
             const promises = [];
             data.conditions.forEach(condition => {
                 promises.push(this.app.interface.conditions(condition.id, condition.probability));
@@ -146,34 +148,41 @@ class Patient {
     }
 
     processQuestionAnswer() {
+        const selected = $(':checked');
+        const inputs = $('input');
+        const self = this;
+        console.log(selected);
         this.app.renderer.run('main', 'loader');
         switch (this.currentQuestion.type) {
             case 'single':
-                var checked = $('input:checked');
-                this.addEvidence(this.currentQuestion.items[0].id, checked.id, false, this.currentQuestion.items[0].name);
-                console.log(checked);
+                console.log('hit single');
+                console.log(selected);
+                this.addEvidence(this.currentQuestion.items[0].id, selected[0].id, false, this.currentQuestion.items[0].name);
                 console.log(this.currentQuestion.type);
                 console.log('question type single');
                 this.app.nav.runDiagnosis();
                 break;
             case 'group_single':
-                var checked = $('input:checked');
-                if (checked.id !== 'none' && checked.id != 'unknown') {
-                    this.addEvidence(checked.id, 'present', false, checked.data('name'));
+                console.log('hit group single');
+                if (selected[0].id !== 'none' && selected[0].id != 'unknown') {
+                    console.log(selected[0].id);
+                    this.addEvidence(selected[0].id, 'present', false, selected[0].dataset.name);
                 }
                 console.log(this.currentQuestion.type);
                 console.log('question type group_single');
                 this.app.nav.runDiagnosis();
                 break;
             case 'group_multiple':
-                $('input').each(function() {
+                console.log('hit group multiple');
+                inputs.each(function() {
                     console.log(this);
                     if (this.id !== 'none') {
                         let presence = 'absent';
-                        if (this.is(':checked')) {
+                        if (this.checked) {
                             presence = 'present';
                         }
-                        this.addEvidence(this.id, presence, false, this.data('name'));
+                        console.log(this.id);
+                        self.addEvidence(this.id, presence, false, this.dataset.name);
                     }
                 });
                 console.log(this.currentQuestion.type);
