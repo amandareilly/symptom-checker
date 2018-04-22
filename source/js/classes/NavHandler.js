@@ -15,13 +15,15 @@ class NavHandler {
     }
 
     diagnoseMe() {
+        this.app.renderer.run('header', 'header-disclaimer');
         this.app.renderer.run('main', 'disclaimer');
     }
 
     acceptDisclaimer() {
         this.app.renderer.run('header', 'header-symptomChecker');
         this.app.renderer.run('main', 'interview-start');
-        // TODO: implement disclaimer text
+        this.app.renderer.run('footer', 'footer');
+        $('footer').removeClass('hidden');
     }
 
     submitInterviewStart() {
