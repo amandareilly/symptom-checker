@@ -1,8 +1,8 @@
 'use strict';
 
 class InfermedicaHandler {
-    constructor(patient) {
-        this.patient = patient;
+    constructor(app) {
+        this.app = app;
         this.url = 'https://api.infermedica.com/v2/';
         this.settings = {
             'beforeSend': function(xhr) {
@@ -13,11 +13,11 @@ class InfermedicaHandler {
             'contentType': 'application/json',
             'error': function(XMLHttpRequest) {
                 console.log(XMLHttpRequest);
-                this.patient.handler.catchError();
+                this.app.nav.catchError();
             }.bind(this)
         };
 
-        console.log(this.patient);
+        console.log(this.app.patient);
     }
 
     call(endpoint, params) {
@@ -39,10 +39,10 @@ class InfermedicaHandler {
     }
 
     processSearch(data, params) {
-        console.log(this.patient);
-        this.patient.searchResults.push({ data, params });
+        console.log(this.app.patient);
+        this.app.patient.searchResults.push({ data, params });
         if (params.last) {
-            this.patient.processSearchFinished();
+            this.app.patient.processSearchFinished();
         }
     }
 
@@ -80,14 +80,14 @@ class InfermedicaHandler {
     diagnosis() {
         const url = this.url + 'diagnosis';
         const settings = Object.assign(this.settings);
-        settings.data = JSON.stringify(this.patient.interview);
+        settings.data = JSON.stringify(this.app.patient.interview);
         settings.method = 'POST';
         settings.success = function(data) {
-            this.patient.processDiagnosisData(data);
+            this.app.patient.processDiagnosisData(data);
         }.bind(this);
         $.ajax(url, settings);
-        console.log(JSON.stringify(this.patient.interview));
-        console.log(this.patient.interview);
+        console.log(JSON.stringify(this.app.patient.interview));
+        console.log(this.app.patient.interview);
     }
 
     conditions(id, probability) {
@@ -96,7 +96,7 @@ class InfermedicaHandler {
         settings.method = 'GET';
         settings.success = function(data) {
             data.probability = probability;
-            this.patient.conditions.push(data);
+            this.app.patient.conditions.push(data);
         }.bind(this);
         return $.ajax(url, settings);
     }

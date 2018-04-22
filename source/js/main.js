@@ -1,14 +1,12 @@
 function mainController() {
-    let patient = new Patient();
-    const navHandler = new NavHandler(patient);
-    console.log(patient);
+    const app = new App();
     //render the home page
-    navHandler.renderer.run('header', 'header-home');
-    navHandler.renderer.run('main', 'home');
+    app.renderer.run('header', 'header-home');
+    app.renderer.run('main', 'home');
     //listen for clicks 
     $('#main-container').on('click', '[data-clickable]', function(e) {
         e.preventDefault();
-        navHandler.run(e);
+        app.nav.run(e);
     });
 }
 $(mainController);

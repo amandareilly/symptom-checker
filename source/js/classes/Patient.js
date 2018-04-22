@@ -1,17 +1,13 @@
 'use strict';
 
 class Patient {
-    constructor() {
-        this.handler = new NavHandler(this);
-        this.renderer = new PageRenderer();
-        this.interface = new InfermedicaHandler(this);
+    constructor(app) {
+        this.app = app;
         this.interview = {
             'sex': null,
             'age': null,
             'evidence': []
         };
-        this.presentRiskFactorNames = [];
-        this.absentRiskFactorNames = [];
         this.presentEvidenceNames = [];
         this.absentEvidenceNames = [];
         this.searchResults = [];
@@ -24,9 +20,9 @@ class Patient {
         this.interview.age = age;
         this.interview.sex = gender;
         this.processAge();
-        console.log(this.handler.riskFactorInterview);
+        console.log(this.app.riskInterview);
         this.processGender();
-        console.log(this.handler.riskFactorInterview);
+        console.log(this.app.riskInterview);
     }
 
     processAge() {
@@ -47,7 +43,7 @@ class Patient {
         if (this.interview.sex === 'female') {
             this.addEvidence('p_1', 'present', true);
         } else {
-            this.handler.riskFactorInterview.markInterviewUnavailable('femaleInterview');
+            this.app.riskInterview.markInterviewUnavailable('femaleInterview');
             this.addEvidence('p_2', 'present', true);
         }
     }
@@ -62,7 +58,7 @@ class Patient {
     }
 
     runSymptomMatcher() {
-        this.handler.startSymptomMatcher();
+        this.app.nav.startSymptomMatcher();
     }
 
     processMatchedSymptoms() {
@@ -99,11 +95,11 @@ class Patient {
             'choice_id': presence,
             'initial': isInitial
         });
-        this.renderer.run('aside', 'interview-sidebar', this);
+        this.app.renderer.run('aside', 'interview-sidebar', this);
     }
 
     runRiskFactorInterview() {
-        this.handler.riskFactorStart();
+        this.app.nav.riskFactorStart();
     }
 
     processRiskFactors() {
@@ -118,9 +114,9 @@ class Patient {
             this.addEvidence(info[0], presence, true, name);
         }
         if (this.riskFactorInterview !== undefined && this.riskFactorInterview.length != 0) {
-            this.handler.runRiskFactor();
+            this.app.nav.runRiskFactor();
         } else {
-            this.handler.runDiagnosis();
+            this.app.nav.runDiagnosis();
         }
     }
 
@@ -129,15 +125,15 @@ class Patient {
         if (data.should_stop || this.numCalls > 9 || !data.question) {
             const promises = [];
             data.conditions.forEach(condition => {
-                promises.push(this.interface.conditions(condition.id, condition.probability));
+                promises.push(this.app.interface.conditions(condition.id, condition.probability));
             });
             $.when.apply($, promises).then(
                 function() {
                     this.showDiagnoses();
-                }.bind(this.handler),
+                }.bind(this.app.nav),
                 function() {
-                    this.handler.catchError();
-                }.bind(this.handler));
+                    this.app.nav.catchError();
+                }.bind(this.app.nav));
             console.log(data);
             console.log(JSON.stringify(data));
             console.log(this);
@@ -145,12 +141,12 @@ class Patient {
             console.log(data);
             console.log('process diagnosis data else');
             this.currentQuestion = data.question;
-            this.renderer.run('main', 'question-form-' + this.currentQuestion.type, this.currentQuestion);
+            this.app.renderer.run('main', 'question-form-' + this.currentQuestion.type, this.currentQuestion);
         }
     }
 
     processQuestionAnswer() {
-        this.renderer.run('main', 'loader');
+        this.app.renderer.run('main', 'loader');
         switch (this.currentQuestion.type) {
             case 'single':
                 var checked = $('input:checked');
@@ -158,7 +154,7 @@ class Patient {
                 console.log(checked);
                 console.log(this.currentQuestion.type);
                 console.log('question type single');
-                this.handler.runDiagnosis();
+                this.app.nav.runDiagnosis();
                 break;
             case 'group_single':
                 var checked = $('input:checked');
@@ -167,7 +163,7 @@ class Patient {
                 }
                 console.log(this.currentQuestion.type);
                 console.log('question type group_single');
-                this.handler.runDiagnosis();
+                this.app.nav.runDiagnosis();
                 break;
             case 'group_multiple':
                 $('input').each(function() {
@@ -182,7 +178,7 @@ class Patient {
                 });
                 console.log(this.currentQuestion.type);
                 console.log('question type group_multiple');
-                this.handler.runDiagnosis();
+                this.app.nav.runDiagnosis();
                 break;
         }
     }

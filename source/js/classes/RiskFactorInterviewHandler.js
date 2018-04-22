@@ -1,10 +1,9 @@
 'use strict';
 
 class RiskFactorInterviewHandler {
-    constructor(patient, renderer, name = "Wherefore art thou?") {
+    constructor(app, name = "Wherefore art thou?") {
         this.name = name;
-        this.patient = patient;
-        this.renderer = renderer;
+        this.app = app;
         this.interviews = [{
                 name: 'basicInterview',
                 available: true,
@@ -408,9 +407,9 @@ class RiskFactorInterviewHandler {
         const interview = this.findNextAvailableInterview();
         console.log(interview);
         if (interview) {
-            this.renderer.run('main', 'riskFactorInterviews_interview-form', interview);
+            this.app.renderer.run('main', 'riskFactorInterviews_interview-form', interview);
         } else {
-            this.patient.handler.riskFactorInterviewComplete();
+            this.app.nav.riskFactorInterviewComplete();
         }
     }
 
@@ -458,7 +457,7 @@ class RiskFactorInterviewHandler {
                 if (question.isRiskFactor) {
                     const presence = checked ? question.riskFactorData.if_true : question.riskFactorData.if_false;
                     if (presence) {
-                        self.patient.addEvidence(id, presence, true, question.riskFactorData.common_name);
+                        self.app.patient.addEvidence(id, presence, true, question.riskFactorData.common_name);
                     }
                 }
                 if (question.hasOwnProperty('dependent') && !checked) {
