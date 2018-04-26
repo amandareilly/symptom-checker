@@ -7,11 +7,7 @@ to provide you with the most likely possible diagnoses, and suggestions on next 
 
 The live application is hosted at [http://amandareilly.me/symptom-checker](http://amandareilly.me/symptom-checker).
 
-![homepage screenshot](https://github.com/amandareilly/symptom-checker/blob/master/info/symptom-checker-screenshots/home.PNG)
-![start interview screenshot](https://github.com/amandareilly/symptom-checker/blob/master/info/symptom-checker-screenshots/start-interview.PNG)
-![start symptom interview screenshot](https://github.com/amandareilly/symptom-checker/blob/master/info/symptom-checker-screenshots/start-symptom-interview.PNG)
-![risk factor interview screenshot](https://github.com/amandareilly/symptom-checker/blob/master/info/symptom-checker-screenshots/risk-factor-interview.PNG)
-![possible conditions page screenshot](https://github.com/amandareilly/symptom-checker/blob/master/info/symptom-checker-screenshots/possible-conditions.PNG)
+Screenshots at bottom of this page.
 
 ## Using Locally
 
@@ -45,3 +41,15 @@ Once you have NPM and Gulp installed, cd into the project directory, and run 'np
 ## License
 
 This project is licensed under the MIT License.
+
+## Screenshots
+
+![homepage screenshot](https://github.com/amandareilly/symptom-checker/blob/master/info/symptom-checker-screenshots/home.PNG)
+
+![start interview screenshot](https://github.com/amandareilly/symptom-checker/blob/master/info/symptom-checker-screenshots/start-interview.PNG)
+
+![start symptom interview screenshot](https://github.com/amandareilly/symptom-checker/blob/master/info/symptom-checker-screenshots/start-symptom-interview.PNG)
+
+![risk factor interview screenshot](https://github.com/amandareilly/symptom-checker/blob/master/info/symptom-checker-screenshots/risk-factor-interview.PNG)
+
+![possible conditions page screenshot](https://github.com/amandareilly/symptom-checker/blob/master/info/symptom-checker-screenshots/possible-conditions.PNG)
