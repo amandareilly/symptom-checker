@@ -6,11 +6,7 @@ class NavHandler {
     }
 
     run(e) {
-        // e.PreventDefault();
-        console.log(this.app.patient);
-        const id = $(event.target).data('clickable');
-        // let id = e.originalEvent.path[0].id
-        //     .replace(/(-.)/g, function(match) { return match[1].toUpperCase(); });
+        const id = $(event.target).data('clickable');;
         this[id]();
     }
 
@@ -50,8 +46,6 @@ class NavHandler {
                 $('input[name=age]').val(),
                 $('input[name=gender]:checked').val()
             );
-            // $('aside').removeClass('hide');
-            // $('.aside').removeClass('hide');
             this.app.renderer.run('aside', 'interview-sidebar', this.app.patient);
             this.app.renderer.run('main', 'symptom-interview', this.app.patient);
         }
@@ -71,8 +65,6 @@ class NavHandler {
             const symptoms = $('textarea').val();
             this.app.renderer.run('main', 'loader', this.app.patient);
             this.app.interface.call('parse', { 'phrase': symptoms, 'patient': this.app.patient });
-            console.log('called parse symptoms');
-            //TODO: implement and re-code for new setup
         }
     }
 
@@ -92,18 +84,13 @@ class NavHandler {
             }
         });
         if (validator.form()) {
-            console.log('symptom matcher submitted');
             this.app.patient.processMatchedSymptoms();
         }
     }
 
     startSymptomMatcher() {
-        console.log('symptom matcher running');
-        console.log(this.app.patient);
         const results = this.app.patient.searchResults.shift();
-        console.log(results);
         this.app.renderer.run('main', 'symptom-matcher', results);
-        console.log(this.app.patient);
     }
 
     riskFactorStart() {
@@ -144,10 +131,7 @@ class NavHandler {
     }
 
     showDiagnoses() {
-        console.log('SHOW DIAGNOSES');
-        console.log(this.app.patient.conditions);
         const wrapper = { 'conditions': this.app.patient.conditions };
-        console.log(wrapper);
         this.app.renderer.run('main', 'show-conditions', wrapper);
     }
 
@@ -167,7 +151,6 @@ class NavHandler {
             }
         });
         if (validator.form()) {
-            console.log('question submission received');
             this.app.patient.processQuestionAnswer();
         }
     }
@@ -182,7 +165,6 @@ class NavHandler {
     }
 
     noSymptomsFound(phrase) {
-        console.log("No Symptoms Found");
         this.app.renderer.run('main', 'symptom-interview', this.app.patient);
         $('#errors').removeAttr('style').html('<p class="error">No information found for: "' + phrase + '".  Please try again.');
     }

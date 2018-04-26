@@ -405,7 +405,6 @@ class RiskFactorInterviewHandler {
 
     run() {
         const interview = this.findNextAvailableInterview();
-        console.log(interview);
         if (interview) {
             this.app.renderer.run('main', 'riskFactorInterviews_interview-form', interview);
         } else {
@@ -414,9 +413,7 @@ class RiskFactorInterviewHandler {
     }
 
     findNextAvailableInterview() {
-        console.log(this);
         const interview = this.interviews.find(interview => interview.available && !interview.completed);
-        console.log(interview);
         return interview;
     }
 
@@ -427,7 +424,6 @@ class RiskFactorInterviewHandler {
     findQuestionById(interviewName, id) {
         const interview = this.findInterviewByName(interviewName);
         const question = interview.questions.find(question => question.riskFactorData.id === id);
-        console.log(question);
         return question;
     }
 
@@ -437,12 +433,8 @@ class RiskFactorInterviewHandler {
     }
 
     markInterviewUnavailable(name) {
-        console.log('mark interview unavailable running');
-        console.log(this);
-        console.log(name);
         const interview = this.findInterviewByName(name);
         interview.available = false;
-        console.log(this);
     }
 
     processInterviewAnswers() {

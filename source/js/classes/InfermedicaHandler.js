@@ -12,12 +12,9 @@ class InfermedicaHandler {
             },
             'contentType': 'application/json',
             'error': function(XMLHttpRequest) {
-                console.log(XMLHttpRequest);
                 this.app.nav.catchError();
             }.bind(this)
         };
-
-        console.log(this.app.patient);
     }
 
     call(endpoint, params) {
@@ -25,7 +22,6 @@ class InfermedicaHandler {
     }
 
     search(params) {
-        console.log(params);
         const url = this.url + 'search';
         const settings = Object.assign(this.settings);
         settings.data = {
@@ -39,7 +35,6 @@ class InfermedicaHandler {
     }
 
     processSearch(data, params) {
-        console.log(this.app.patient);
         this.app.patient.searchResults.push({ data, params });
         if (params.last) {
             this.app.patient.processSearchFinished();
@@ -47,7 +42,6 @@ class InfermedicaHandler {
     }
 
     parse(params) {
-        console.log(params);
         const url = this.url + 'parse';
         const settings = Object.assign(this.settings);
         settings.data = JSON.stringify({
@@ -61,12 +55,8 @@ class InfermedicaHandler {
     }
 
     processParse(data, params) {
-        console.log(params);
-        console.log(data);
         const found = data.mentions;
-        console.log(found);
         if (found.length === 0) {
-            console.log(this.app.nav);
             this.app.nav.noSymptomsFound(params.phrase);
         } else {
             for (let i = 0; i < found.length; i++) {
@@ -91,8 +81,6 @@ class InfermedicaHandler {
             this.app.patient.processDiagnosisData(data);
         }.bind(this);
         $.ajax(url, settings);
-        console.log(JSON.stringify(this.app.patient.interview));
-        console.log(this.app.patient.interview);
     }
 
     conditions(id, probability) {
