@@ -86,7 +86,6 @@ class Patient {
             'choice_id': presence,
             'initial': isInitial
         });
-        this.app.renderer.run('aside', 'interview-sidebar', this);
     }
 
     runRiskFactorInterview() {

@@ -46,7 +46,6 @@ class NavHandler {
                 $('input[name=age]').val(),
                 $('input[name=gender]:checked').val()
             );
-            this.app.renderer.run('aside', 'interview-sidebar', this.app.patient);
             this.app.renderer.run('main', 'symptom-interview', this.app.patient);
         }
     }
@@ -160,7 +159,6 @@ class NavHandler {
     }
 
     catchError() {
-        $('aside').addClass('hide');
         this.app.renderer.run('main', 'error');
     }
 
