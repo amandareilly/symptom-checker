@@ -22,7 +22,7 @@ Once you have NPM and Gulp installed, cd into the project directory, and run 'np
 * JavaScript (Primarily ES6)
 * jQuery
 
-## Frameworks and Plugins
+### Frameworks and Plugins
 
 * [jQuery Validation Plugin](https://jqueryvalidation.org/) - jQuery Form Validation
 * [Handlebars](https://handlebarsjs.com/) - JavaScript Templating Engine
