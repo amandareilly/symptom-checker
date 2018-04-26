@@ -23,12 +23,14 @@ class NavHandler {
         this.app.renderer.run('header', 'header-symptomChecker');
         this.app.renderer.run('main', 'interview-start');
         this.app.renderer.run('footer', 'footer');
-        $('footer').removeClass('hidden');
+        $('footer').removeClass('hide');
+        $('.footer').removeClass('hide');
     }
 
     submitInterviewStart() {
         const validator = $('form').validate({
             errorLabelContainer: '#errors',
+            errorElement: 'li',
             messages: {
                 'first-name': {
                     required: 'Please enter your name.',
@@ -48,16 +50,17 @@ class NavHandler {
                 $('input[name=age]').val(),
                 $('input[name=gender]:checked').val()
             );
-            $('aside').removeClass('hidden');
+            // $('aside').removeClass('hide');
+            // $('.aside').removeClass('hide');
             this.app.renderer.run('aside', 'interview-sidebar', this.app.patient);
             this.app.renderer.run('main', 'symptom-interview', this.app.patient);
-            // TODO: implement function and error handling
         }
     }
 
     submitSymptoms() {
         const validator = $('form').validate({
             errorLabelContainer: '#errors',
+            errorElement: 'li',
             messages: {
                 'enter-symptoms': {
                     required: 'Please tell me about your symptoms.'
@@ -76,6 +79,7 @@ class NavHandler {
     submitSymptomMatcher() {
         const validator = $('form').validate({
             errorLabelContainer: '#errors',
+            errorElement: 'li',
             rules: {
                 'symptom': {
                     require_from_group: [1, ".symptom-group"]
@@ -113,6 +117,7 @@ class NavHandler {
     submitRiskFactors() {
         const validator = $('form').validate({
             errorLabelContainer: '#errors',
+            errorElement: 'li',
             rules: {
                 'choice': {
                     require_from_group: [1, ".risk-factor-group"]
@@ -147,8 +152,24 @@ class NavHandler {
     }
 
     submitQuestionAnswer() {
-        console.log('question submission received');
-        this.app.patient.processQuestionAnswer();
+        const validator = $('form').validate({
+            errorLabelContainer: '#errors',
+            errorElement: 'li',
+            rules: {
+                'choice': {
+                    require_from_group: [1, ".choice-group"]
+                }
+            },
+            messages: {
+                'choice': {
+                    require_from_group: 'Please select an answer, or select "None" if none of the statements apply to you.'
+                }
+            }
+        });
+        if (validator.form()) {
+            console.log('question submission received');
+            this.app.patient.processQuestionAnswer();
+        }
     }
 
     startOver() {
@@ -156,7 +177,7 @@ class NavHandler {
     }
 
     catchError() {
-        $('aside').addClass('hidden');
+        $('aside').addClass('hide');
         this.app.renderer.run('main', 'error');
     }
 

@@ -4,26 +4,37 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/materialize.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
     <title>Symptom Checker</title>
 </head>
 
 <body>
     <div id="main-container">
-        <header role="banner">
-        </header>
-        <aside role="complementary" class="hidden">
-        </aside>
-        <main role="main">
-        </main>
-        <footer role="contentinfo" class="hidden">
-        </footer>
+        <div class="header-container indigo darken-4 blue-text text-lighten-5">
+            <header role="banner" class="container" aria-live="polite">
+            </header>
+        </div>
+        <div class="main-container" aria-live="assertive">
+            <main role="main" class="container">
+            </main>
+        </div>
+        <div class="aside-container aside hide">
+            <aside role="complementary" class="hide container">
+            </aside>
+        </div>
+        <div class="footer-container footer hide page-footer indigo darken-4">
+            <footer role="contentinfo" class="hide container" aria-live="polite">
+            </footer>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.runtime.min.js" charset="utf-8"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js" charset="utf-8"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/additional-methods.min.js" charset="utf-8"></script>
-    <script src="/assets/js/bundle.js " charset="utf-8 "></script>
+    <script src="assets/js/bundle.js " charset="utf-8 "></script>
 </body>
 
 </html>

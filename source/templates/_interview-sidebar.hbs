@@ -1,27 +1,30 @@
-<aside class="interview-sidebar">
-  <h3>You've Told Me</h3>
-  <dl>
-    <dt>Name:</dt>
-    <dd>{{name}}</dd>
-    <dt>Age:</dt>
-    <dd>{{interview.age}}</dd>
-    <dt>Gender:</dt>
-    <dd>{{interview.sex}}</dd>
-  </dl>
-  <h4>Symptoms and Risk Factors Present</h4>
-  <ul>
-    {{#each presentEvidenceNames}}
+<ul class="collapsible">
+  <li>
+    <div class="collapsible-header"><i class="material-icons">account circle</i>  Patient Information</div>
+    <div class="collapsible-body">
+      <p class="information-element"><span class="label">Name:</span> {{name}}</p>
+      <p class="information-element"><span class="label">Age:</span> {{interview.age}}</p>
+      <p class="information-element"><span class="label">Sex:</span> {{interview.sex}}</p>
+    </div>
+  </li>
+  <li>
+    <div class="collapsible-header"><span class="evidence-present green-text"><i class="material-icons">done</i>  Symptoms and Risk Factors Present</span></div>
+    <div class="collapsible-body"><ul>
+      {{#each presentEvidenceNames}}
       <li class="evidence symptom present">{{this}}</li>
-    {{else}}
+      {{else}}
       <p>None yet.</p>
-    {{/each}}
-  </ul>
-  <h4>Symptoms and Risk Factors Absent</h4>
-  <ul>
-    {{#each absentEvidenceNames}}
+      {{/each}}
+    </ul></div>
+  </li>
+  <li>
+    <div class="collapsible-header"><span class="evidence-absent red-text"><i class="material-icons">close</i>  Symptoms and Risk Factors Absent</span></div>
+    <div class="collapsible-body"><ul>
+      {{#each absentEvidenceNames}}
       <li class="evidence symptom absent">{{this}}</li>
-    {{else}}
+      {{else}}
       <p>None yet.</p>
-    {{/each}}
-  </ul>
-</aside>
+      {{/each}}
+    </ul></div>
+  </li>
+</ul>

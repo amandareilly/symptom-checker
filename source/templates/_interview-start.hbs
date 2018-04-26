@@ -3,14 +3,15 @@
 <form class="interview-start" action="#" method="post">
   <fieldset>
     <legend>Tell Me About Yourself</legend>
-    <div id="errors" style="display: none;"></div>
-    <label for="first-name">What can I call you?</label><br>
-    <input type="text" name="first-name" placeholder="First Name" minlength=2 required><br>
-    <label for="age">How old are you?</label><br>
-    <input type="number" name="age" required><br>
-    <label for="gender">Are you Male or Female?</label><br>
-    <input type="radio" name="gender" value="male" id="male" required><label for="male">Male</label><br>
-    <input type="radio" name="gender" value="female" id="female" required><label for="female">Female</label><br>
-    <button type="submit" name="submit" id="submit-interview-start" data-clickable="submitInterviewStart">Continue</button>
+    <ul id="errors" style="display: none;"></ul>
+    <label for="first-name">What can I call you?
+    <input type="text" name="first-name" id="first-name"placeholder="First Name" minlength=2 required></label>
+    
+    <label for="age">How old are you?
+    <input type="number" name="age" required></label>
+    <label for="gender">What is your sex?</label><br>
+    <label for="male"><input type="radio" name="gender" value="male" id="male" class="with-gap" required><span>Male</span></label>
+    <label for="female"><input type="radio" name="gender" value="female" id="female" class="with-gap" required><span>Female</span></label><br>
+    <button type="submit" name="submit" id="submit-interview-start" data-clickable="submitInterviewStart" class="btn btn-large right">Continue</button>
   </fieldset>
 </form>

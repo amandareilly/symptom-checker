@@ -20,7 +20,7 @@ const runSequence = require('run-sequence');
 gulp.task('default', ['watch']);
 
 gulp.task('build-css', function() {
-    return gulp.src('source/scss/**/*.scss')
+    return gulp.src('source/scss/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(autoprefixer({
@@ -75,9 +75,7 @@ gulp.task('compile-templates', function() {
 
 gulp.task('build-js', function() {
     return gulp.src('source/js/classes/*.js')
-        .pipe(addsrc.append('source/js/data/*.js'))
         .pipe(addsrc.append('source/js/templates/*.js'))
-        .pipe(addsrc.append('source/js/functions/*.js'))
         .pipe(addsrc.append('source/js/*.js'))
         .pipe(sourcemaps.init())
         .pipe(concat('bundle.js'))

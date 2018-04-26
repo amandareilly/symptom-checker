@@ -1,4 +1,6 @@
 function mainController() {
+    //initialize materialize javascript features
+    M.AutoInit();
     const app = new App();
     //render the home page
     app.renderer.run('header', 'header-home');

@@ -1,18 +1,21 @@
 <form action="#" id="diagnosis-question" data-type="group_single">
     <fieldset>
-        <legend>{{text}}</legend><div id="error" style="display: none;">
-        </div>
+        <legend>{{text}}</legend>
+        <ul id="errors" style="display: none;"></ul>
         {{#each items}}
-            <label for="{{this.id}}">{{this.name}}
-                <input type="radio" name="choice" id="{{this.id}}" value="{{this.id}}" data-name="{{this.name}}"required>
-            </label>
+            <label for="{{this.id}}">
+                <input type="radio" name="choice" id="{{this.id}}" value="{{this.id}}" data-name="{{this.name}}" class="choice-group with-gap" required>
+                <span>{{this.name}}</span>
+            </label><br>
         {{/each}}
-        <label for="none">None of the Above
-            <input type="radio" name="choice" id="none" value="none">
-        </label>
-        <label for="unknown">I Don't Know
-            <input type="radio" name="choice" id="unknown" value="unknown">
-        </label>
-        <button type="submit" id="submit-question-answer" data-clickable="submitQuestionAnswer">Continue</button>
+        <label for="none">
+            <input type="radio" name="choice" id="none" value="none" class="choice-group with-gap">
+            <span>None of the Above</span>
+        </label><br>
+        <label for="unknown">
+            <input type="radio" name="choice" id="unknown" value="unknown" class="choice-group with-gap">
+            <span>I Don't Know</span>
+        </label><br>
+        <button type="submit" id="submit-question-answer" data-clickable="submitQuestionAnswer" class="btn right">Continue</button>
     </fieldset>
 </form>

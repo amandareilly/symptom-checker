@@ -1,13 +1,9 @@
-<div class="condition {{this.prevalence}} {{this.acuteness}} {{this.severity}} {{this.triage_level}} {{#each categories}}{{this}} {{/each}}"
-    id="{{this.id}}">
-    <h3>{{this.common_name}}</h3>
-    <p class="subheading">Medical Name: {{this.name}}</p>
-    <progress value="{{this.probability}}">Probability: {{this.probability}}</progress>
-    <dl>
-        <dt>Prevalence</dt>
-        <dd>{{this.prevalence}}</dd>
-        <dt>Severity</dt>
-        <dd>{{this.severity}}</dd>
-    </dl>
-    <p><span class="recommendation-label">Recommendation: </span>{{this.extras.hint}}</p>
+<div class="condition {{this.prevalence}} {{this.acuteness}} {{this.severity}} {{this.triage_level}} {{#each categories}}{{this}} {{/each}} card-panel"
+    id="{{this.id}}"
+    <div class="card-content">
+        <span class="card-title">{{this.common_name}}</span>
+        <p class="info"><span class="label">Prevalence: </span>{{this.prevalence}}</p>
+        <p class="info"><span class="label">Severity: </span>{{this.severity}}</p>
+        <p><span class="label">Recommendation: </span>{{this.extras.hint}}</p>
+    </div>
 </div>

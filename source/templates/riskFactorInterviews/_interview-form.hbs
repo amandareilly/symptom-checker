@@ -5,14 +5,14 @@
             <legend>{{prettyName}}</legend>
         {{/if}}
         <p>Select each statement that applies to you.</p>
-        <div id="errors" style="display: none;"></div>
+        <ul id="errors" style="display: none;"></ul>
         {{#each questions}}
             {{> riskFactorInterviews_interview-question}}
         {{/each}}
         <label for="none">
-            None
-            <input type="checkbox" name="choice" id="none" class="risk-factor-group" data-none=true data-group="risk-factor-group">
-        </label>
-        <button type="submit" id="submit-risk-factors" data-clickable="submitRiskFactors">Continue</button>
+            <input type="checkbox" name="choice" id="none" class="risk-factor-group filled-in" data-none=true data-group="risk-factor-group">
+            <span>None</span>
+        </label><br>
+        <button type="submit" id="submit-risk-factors" data-clickable="submitRiskFactors" class="btn btn-large right">Continue</button>
     </fieldset>
 </form>

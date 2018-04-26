@@ -1,7 +1,8 @@
 
     <h2>Possible Conditions</h2>
     <p>Based on the information you have provided us, the following conditions are possible matches for your symptoms:</p>
-    {{#each conditions}}
-        {{> condition}}
-    {{/each}}
-<a href="#" data-clickable="startOver" id="start-over">Start Over</a>
+    <div class="card-container">
+        {{#each conditions}}
+            {{> condition}}
+        {{/each}}
+    </div>
