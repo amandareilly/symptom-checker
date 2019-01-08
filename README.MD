@@ -5,7 +5,7 @@ Everyone has a moment where they feel a twinge, or feel like they are coming dow
 This application seeks to solve that problem. Using the Infermedica Medical Diagnosis API, we walk you through an intelligent interview process 
 to provide you with the most likely possible diagnoses, and suggestions on next steps.
 
-The live application is hosted at [http://amandareilly.me/symptom-checker](http://amandareilly.me/symptom-checker).
+The live application is hosted at [http://symptom-checker.amandareilly.me](http://symptom-checker.amandareilly.me).
 
 Screenshots at bottom of this page.
 
