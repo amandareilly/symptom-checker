@@ -27,7 +27,7 @@
     "gulp-handlebars": "^5.0.2",
     "gulp-livereload": "^3.8.1",
     "gulp-path": "^4.0.0",
-    "gulp-sass": "^4.0.1",
+    "gulp-sass": "^3.2.1",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
